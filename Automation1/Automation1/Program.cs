@@ -21,3 +21,4 @@ PasswordTextbox.SendKeys ("123123");
 // Identify the login button and click on it
 IWebElement LoginButton = Driver.FindElement(By.XPath("//*[@id=\"loginForm\"]/form/div[3]/input[1]"));
 LoginButton.Click();
+/*Test comment */
