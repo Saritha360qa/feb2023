@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.DevTools.V108.Animation;
+using System.Diagnostics;
 
 
 
@@ -24,6 +26,17 @@ IWebElement loginButton = driver.FindElement(By.XPath("//*[@id=\"loginForm\"]/fo
 loginButton.Click();
 Thread.Sleep(1000);
 
+// Check if login was sucessfull
+IWebElement Username = driver.FindElement(By.XPath("//*[@id=\"logoutForm\"]/ul/li/a"));
+if (Username.Text == "helloHari!")
+{
+    Console.WriteLine("login is sucessfull");
+}
+else
+{
+    Console.WriteLine("login failed");
+}
+
 
 // create a new material record
 
@@ -41,20 +54,20 @@ Createnewbutton.Click();
 Thread.Sleep(1000);
 
 // Select time option from type code dropdown list
-IWebElement Typecodedropdown = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[2]/span"));
-Typecodedropdown.Click();
+IWebElement typecodedropdown = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[2]/span"));
+typecodedropdown.Click();
 Thread.Sleep(1000);
 
-IWebElement Timeoption = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[2]/span"));
-Timeoption.Click();
+IWebElement timeoption = driver.FindElement(By.XPath("//*[@id=\"TypeCode_listbox\"]/ li[2]"));
+timeoption.Click();
 
 // Input code into the code textbox
 IWebElement Codetextbox = driver.FindElement(By.Id ("Code"));
-Codetextbox.SendKeys("February2023");
+Codetextbox.SendKeys("Saritha2023Code");
 
 // Input Description into the description textbox
 IWebElement Descriptiontextbox = driver.FindElement(By.Id("Description"));
-Descriptiontextbox.SendKeys("February2023");
+Descriptiontextbox.SendKeys("Saritha2023_Desc");
 
 // Input price per unit into the price per unit text box
 IWebElement Priceperunittextbox = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[1]"));
@@ -73,7 +86,7 @@ gotolastpagebutton.Click();
 Thread.Sleep(2000);
 
 IWebElement Newcode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-if (Newcode.Text == "February2023")
+if (Newcode.Text == "Saritha2023Code")
 {
     Console.WriteLine("New time record created sucessfully");
 }
@@ -81,6 +94,88 @@ else
 {
     Console.WriteLine("New record not created ");
 }
-     
 
+
+
+// Navigate to the last one record and click on edit
+IWebElement lasttimerecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+lasttimerecord.Click();
+
+IWebElement Editbutton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
+Editbutton.Click();
+Thread.Sleep(2000);
+
+//Get Timestamp
+var Timestamp = Stopwatch.GetTimestamp();
+
+Console.WriteLine(Timestamp);
+
+// Edit new code into the code textbox
+
+IWebElement Editnewcode = driver.FindElement(By.Id("Code"));
+Editnewcode.Clear();
+Editnewcode.SendKeys("Saritha"+Timestamp);
+
+// Edit new description into the description textbox
+IWebElement Editnewdescription = driver.FindElement(By.Id("Description"));
+Editnewdescription.Clear();
+Editnewdescription.SendKeys("Saritha Description");
+
+// Edit new price per unit into the price per unit text box
+IWebElement EditPriceperunittextbox = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[1]"));
+EditPriceperunittextbox.Click();
+
+IWebElement newprice = driver.FindElement(By.Id("Price"));
+newprice.Clear();
+EditPriceperunittextbox.Click();
+newprice.SendKeys("18");
+
+// Click on save button
+IWebElement savebutton = driver.FindElement(By.Id("SaveButton"));
+savebutton.Click();
+Thread.Sleep(1000);
+
+//Check if new time record has created
+IWebElement gotothelastpagebutton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[last()]/a[4]/span"));
+gotothelastpagebutton.Click();
+Thread.Sleep(3000);
+
+IWebElement newcode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+
+if (newcode.Text == ("Saritha"+Timestamp))
+{
+    Console.WriteLine("Edited time record created sucessfully");
+}
+else
+{
+    Console.WriteLine("Time record not created sucessfully");
+}
+
+// Navigate to last page and click on delete button
+IWebElement Lasttimerecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+Lasttimerecord.Click();
+
+IWebElement deletebutton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
+deletebutton.Click();
+Thread.Sleep(1000);
+
+// Navigate to alert option 
+driver.SwitchTo().Alert().Accept();
+Thread.Sleep(5000);
+
+
+// check if the record is properly deleted
+IWebElement codedeleted = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+Console.WriteLine(codedeleted.Text);
+
+if (codedeleted.Text == "\"Saritha\"+Timestamp")
+{
+    Console.WriteLine("time record not deleted sucessfully");
+}
+else
+{
+    Console.WriteLine("Time record deleted sucessfully");
+}
+
+driver.Quit();
 
