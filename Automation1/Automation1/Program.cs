@@ -3,13 +3,11 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.DevTools.V108.Animation;
 using System.Diagnostics;
 
-
-
 // open chrome browser 
 IWebDriver driver = new ChromeDriver();
 driver.Manage().Window.Maximize();
 
-// Lunch turnup portal
+// Launch turnup portal
 driver .Navigate().GoToUrl("http://horse.industryconnect.io/Account/Login?ReturnUrl=%2f");
 Thread. Sleep(1000);
 
@@ -28,15 +26,14 @@ Thread.Sleep(1000);
 
 // Check if login was sucessfull
 IWebElement Username = driver.FindElement(By.XPath("//*[@id=\"logoutForm\"]/ul/li/a"));
-if (Username.Text == "helloHari!")
+if (Username.Text == "Hello hari!")
 {
-    Console.WriteLine("login is sucessfull");
+    Console.WriteLine("login is sucessful");
 }
 else
 {
     Console.WriteLine("login failed");
 }
-
 
 // create a new material record
 
@@ -95,8 +92,6 @@ else
     Console.WriteLine("New record not created ");
 }
 
-
-
 // Navigate to the last one record and click on edit
 IWebElement lasttimerecord = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
 lasttimerecord.Click();
@@ -108,10 +103,7 @@ Thread.Sleep(2000);
 //Get Timestamp
 var Timestamp = Stopwatch.GetTimestamp();
 
-Console.WriteLine(Timestamp);
-
 // Edit new code into the code textbox
-
 IWebElement Editnewcode = driver.FindElement(By.Id("Code"));
 Editnewcode.Clear();
 Editnewcode.SendKeys("Saritha"+Timestamp);
@@ -163,14 +155,13 @@ Thread.Sleep(1000);
 driver.SwitchTo().Alert().Accept();
 Thread.Sleep(5000);
 
-
 // check if the record is properly deleted
 IWebElement codedeleted = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-Console.WriteLine(codedeleted.Text);
+//Console.WriteLine(codedeleted.Text);
 
 if (codedeleted.Text == "\"Saritha\"+Timestamp")
 {
-    Console.WriteLine("time record not deleted sucessfully");
+    Console.WriteLine("Time record not deleted sucessfully");
 }
 else
 {
@@ -178,4 +169,3 @@ else
 }
 
 driver.Quit();
-
