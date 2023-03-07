@@ -14,7 +14,7 @@ namespace Automation1.pages
 
             // Launch turnup portal
             Driver.Navigate().GoToUrl("http://horse.industryconnect.io/Account/Login?ReturnUrl=%2f");
-            Thread.Sleep(1000);
+            Thread.Sleep(6000);
 
             // Identify the username textbox and enter valid username
             IWebElement usernameTextbox = Driver.FindElement(By.Id("UserName"));
@@ -27,7 +27,7 @@ namespace Automation1.pages
             // Identify the login button and click on it
             IWebElement loginButton = Driver.FindElement(By.XPath("//*[@id=\"loginForm\"]/form/div[3]/input[1]"));
             loginButton.Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(7000);
         }
     }
 }
