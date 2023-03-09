@@ -21,8 +21,7 @@ namespace Automation1.pages
             Thread.Sleep(3000);
 
            // Wait.waittobeclickable(Driver,"XPath", "/html/body/div[3]/div/div/ul[1]/li[5]/ul/li[3]/a", 5);
-            IWebElement tmOption = Driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/ul/li[3]/a"));
-            Console.WriteLine("What is in tmOption? : "+tmOption.Text);   
+            IWebElement tmOption = Driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/ul/li[3]/a"));  
             tmOption.Click();
             Thread.Sleep(3000);
         }

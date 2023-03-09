@@ -34,7 +34,7 @@ namespace Automation1.tests
         {
          
             homepageobj.GoToTMPage(driver);
-            TMPageobj.EditTM(driver);
+           // TMPageobj.EditTM(driver);
         }
         [Test,Order(3),Description("check if user is able to delete an existing data")]
         public void deletetmtest()

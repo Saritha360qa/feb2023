@@ -50,11 +50,26 @@ namespace Automation1.pages
             gotolastpagebutton.Click();
             Thread.Sleep(2000);
 
-            IWebElement Newcode = Driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-            Assert. That(Newcode.Text == "Saritha2023Code","Actual code and expected code do Not match.");
-
         }
-        public void EditTM(IWebDriver Driver)
+
+        public string Getcode(IWebDriver Driver)
+        {
+            IWebElement Actualcode = Driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            return Actualcode.Text;
+        }
+        public string GetDescription(IWebDriver Driver)
+        {
+            IWebElement ActualDescription = Driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+            return ActualDescription.Text;
+        }
+        public string Getprice(IWebDriver Driver)
+        {
+            IWebElement Actualprice = Driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[4]"));
+            return Actualprice.Text;
+        }
+
+
+        public void EditTM(IWebDriver Driver,String description)
 
         {
             // Navigate to the last one record and click on edit
@@ -62,22 +77,26 @@ namespace Automation1.pages
             gotolastpagebutton.Click();
             Thread.Sleep(3000);
 
-            IWebElement RecordToBeEdited = Driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-            if (RecordToBeEdited.Text == "Saritha2023Code")
-            {
+            //IWebElement RecordToBeEdited = Driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+           // if (RecordToBeEdited.Text == "Saritha2023Code")
+            //{
 
-                IWebElement Editbutton = Driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
-                Editbutton.Click();
-                Thread.Sleep(2000);
+               // IWebElement Editbutton = Driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
+                //Editbutton.Click();
+                //Thread.Sleep(2000);
 
 
-            }
-            else
-                Assert.Fail("Record to be edited not found");
+            //}
+            //else
+                //Assert.Fail("Record to be edited not found");
 
+
+            IWebElement Editbutton = Driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
+            Editbutton.Click();
+            Thread.Sleep(2000);
 
             //Get Timestamp
-           // var Timestamp = Stopwatch.GetTimestamp();
+            // var Timestamp = Stopwatch.GetTimestamp();
 
             // Edit new code into the code textbox
             IWebElement Editnewcode = Driver.FindElement(By.Id("Code"));
@@ -88,7 +107,7 @@ namespace Automation1.pages
             // Edit new description into the description textbox
             IWebElement Editnewdescription = Driver.FindElement(By.Id("Description"));
             Editnewdescription.Clear();
-            Editnewdescription.SendKeys("Saritha Description");
+            Editnewdescription.SendKeys(description);
 
             // Edit new price per unit into the price per unit text box
             IWebElement EditPriceperunittextbox = Driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[1]"));
@@ -113,6 +132,13 @@ namespace Automation1.pages
             Assert.That(newcode.Text == "Saritha12345", "Record not edited sucessfully");
 
         }
+
+        public string  GeteditedDescription(IWebDriver Driver)
+        {
+            IWebElement CreatedDescription = Driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+            return CreatedDescription.Text;
+        }
+       
         public void DeleteTM(IWebDriver Driver)
         {
             // Navigate to last page and click on delete button
@@ -141,6 +167,8 @@ namespace Automation1.pages
 
             Driver.Quit();
         }
+
+       
     }
 }
 
