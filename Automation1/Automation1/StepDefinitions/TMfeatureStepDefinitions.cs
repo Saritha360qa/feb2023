@@ -51,23 +51,45 @@ namespace Automation1.StepDefinitions
             string newprice = TMPageobj.Getprice(driver);
 
             Assert.That(newcode == "Saritha2023Code", "Actual code and expected code do Not match.");
-            Assert.That(newDescription == "Saritha2023_Desc", "Actual code and expected code do Not match.");
-            Assert.That(newprice == "12", "Actual code and expected code do Not match.");
-
-
-
+            Assert.That(newDescription == "Saritha2023_Desc", "Actual description and expected description do Not match.");
+            Assert.That(newprice == "$12.00", "Actual price and expected price do Not match.");
         }
-        [When(@"I Update '([^']*)' on an existing time and materials record")]
-        public void WhenIUpdateOnAnExistingTimeAndMaterialsRecord(string description)
+
+       // [When(@"I Update '([^']*)' on an existing time and materials record")]
+       // public void WhenIUpdateOnAnExistingTimeAndMaterialsRecord(string description)
+       // {
+           // TMPageobj . EditTM(driver, description);
+       // }
+
+       /// [Then(@"The record should have the updated '([^']*)'")]
+        //public void ThenTheRecordShouldHaveTheUpdated(string description)
+        //{
+           // throw new PendingStepException();
+       // }
+
+
+        [When(@"I Update '([^']*)' '([^']*)','([^']*)'on an existing time and materials record")]
+        public void WhenIUpdateOnAnExistingTimeAndMaterialsRecord(string description, string code, string price)
         {
-            TMPageobj . EditTM(driver, description);
+            TMPageobj.EditTM(driver, description, code, price);
+        }
+        [Then(@"The record should have the updated '([^']*)','([^']*)','([^']*)'")]
+        public void ThenTheRecordShouldHaveTheUpdated(string description, string code, string price)
+        {
+            String EditedDescription = TMPageobj .GeteditedDescription(driver);
+
+            String EditedCode = TMPageobj.GeteditedCode(driver);
+
+            String EditedPrice = TMPageobj.GeteditedPrice(driver);
+            Console.WriteLine("This is Price stored int he Object"+ EditedPrice);
+
+            Assert.That(EditedDescription == description, "Actual description and expected decsription do not match");
+            Assert.That(EditedCode == code, "Actual code and expected code do not match");
+            Assert.That(EditedPrice == price, "Actual price and expected price do not match");
+
         }
 
-        [Then(@"The record should have the updated '([^']*)'")]
-        public void ThenTheRecordShouldHaveTheUpdated(string description)
-        {
-            throw new PendingStepException();
-        }
+
 
 
     }
