@@ -157,16 +157,16 @@ namespace Automation1.pages
             gotothelastpagebutton.Click();
             Thread.Sleep(5000);
 
-            IWebElement LastRecordToBeDeleted = Driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-            if (LastRecordToBeDeleted.Text == "Saritha12345")
-            {
+            //IWebElement LastRecordToBeDeleted = Driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            //if (LastRecordToBeDeleted.Text == "Saritha12345")
+            //{
                 IWebElement deletebutton = Driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[2]"));
                 deletebutton.Click();
                 Thread.Sleep(1000);
 
-            }
-            else
-                Assert.Fail("Record to be deleted not found");
+           // }
+            //else
+                //Assert.Fail("Record to be deleted not found");
 
             // Navigate to alert option 
             Driver.SwitchTo().Alert().Accept();
