@@ -30,12 +30,12 @@ namespace Automation1.pages
             // Navigate to time and materials page
             IWebElement Administrationdropdown = Driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a"));
             Administrationdropdown.Click();
-            Thread.Sleep(8000);
+            Thread.Sleep(3000);
 
            // Wait.waittobeclickable(Driver, "XPath", "/html/body/div[3]/div/div/ul/li[5]/ul/li[2]/a)", 5);
             IWebElement Employeesoption = Driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/ul/li[2]/a"));
             Employeesoption.Click();
-            Thread.Sleep(8000);
+            Thread.Sleep(3000);
 
         }
     }
